@@ -23,7 +23,6 @@ public class Timer {
     public void StartTimer() {
         timerStart = Time.time;
         hasStarted = true;
-        Debug.Log("seuf");
     }
 
     /// <summary>

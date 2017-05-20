@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour {
 
-    Timer timer;
+    public Timer timer;
+    public bool active;
 
 	// Use this for initialization
 	void Start () {
         timer = new Timer();
+        active = false;
 	}
 	
 	// Update is called once per frame
@@ -22,16 +24,21 @@ public class Interactable : MonoBehaviour {
     public void Begin() {
         timer.StartTimer();
         GetComponent<MeshRenderer>().material.color = Color.green;
+        active = true;
     }
 
     public void End() {
         timer.StopTimer();
         GetComponent<MeshRenderer>().material.color = Color.white;
         Debug.Log(timer.duration);
+        active = false;
     }
 
     void OnTriggerEnter(Collider other)
     {
-        End();
+        if (active)
+        {
+            End();
+        }
     }
 }
