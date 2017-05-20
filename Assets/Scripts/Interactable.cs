@@ -6,6 +6,7 @@ public class Interactable : MonoBehaviour {
 
     public Timer timer;
     public bool active;
+    protected GameObject indicatorObject;
 
 	// Use this for initialization
 	void Start () {
@@ -23,22 +24,16 @@ public class Interactable : MonoBehaviour {
 
     public void Begin() {
         timer.StartTimer();
-        GetComponent<MeshRenderer>().material.color = Color.green;
+        indicatorObject.GetComponent<MeshRenderer>().material.color = Color.red;
         active = true;
     }
 
     public void End() {
         timer.StopTimer();
-        GetComponent<MeshRenderer>().material.color = Color.white;
+        indicatorObject.GetComponent<MeshRenderer>().material.color = Color.red;
         Debug.Log(timer.duration);
         active = false;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (active)
-        {
-            End();
-        }
-    }
+
 }

@@ -18,7 +18,7 @@ public class ButtonAnimation : MonoBehaviour {
     // This is the second part of the button which remains in static position but changes color according to press
     public GameObject IndicatorObject;
 
-    protected bool pressed = false;
+    public bool pressed = false;
     protected bool released = false;
     protected Vector3 startPosition;
 
