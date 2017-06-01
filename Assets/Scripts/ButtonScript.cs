@@ -20,4 +20,11 @@ public class ButtonScript : Interactable {
             End();
         }
 	}
+
+    public override void Begin()
+    {
+        timer.StartTimer();
+        indicatorObject.GetComponent<MeshRenderer>().material.color = Color.red;
+        active = true;
+    }
 }

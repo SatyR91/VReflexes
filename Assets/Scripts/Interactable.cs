@@ -9,9 +9,11 @@ public class Interactable : MonoBehaviour {
     public bool active;
     protected GameObject indicatorObject;
     public Text reactionTimeUI;
+    public List<float> reactionTimes;
 
 	// Use this for initialization
 	void Start () {
+        reactionTimes = new List<float>();
         timer = new Timer();
         active = false;
 	}
@@ -24,18 +26,24 @@ public class Interactable : MonoBehaviour {
         }
     }
 
-    public void Begin() {
-        timer.StartTimer();
-        indicatorObject.GetComponent<MeshRenderer>().material.color = Color.red;
-        active = true;
+    public virtual void Begin() {
+        
     }
 
     public void End() {
         timer.StopTimer();
         //indicatorObject.GetComponent<MeshRenderer>().material.color = Color.red;
-        Debug.Log(timer.duration);
-        reactionTimeUI.text = timer.duration.ToString();
+        if (reactionTimeUI) {
+            reactionTimeUI.text = timer.duration.ToString();
+        }
+        storeRT(timer.duration);
+        Debug.Log(reactionTimes[reactionTimes.Count - 1]);
         active = false;
+    }
+
+
+    public void storeRT(float RT) {
+        reactionTimes.Add(RT);
     }
 
 
