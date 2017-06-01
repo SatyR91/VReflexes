@@ -10,6 +10,7 @@ public class Interactable : MonoBehaviour {
     protected GameObject indicatorObject;
     public Text reactionTimeUI;
     public List<float> reactionTimes;
+    private int counter;
 
 	// Use this for initialization
 	void Start () {
@@ -44,7 +45,19 @@ public class Interactable : MonoBehaviour {
 
     public void storeRT(float RT) {
         reactionTimes.Add(RT);
+        counter++;
     }
 
 
+    // --- Counter
+    public void resetCounter()
+    {
+        counter = 0;
+    }
+
+    public int getCounter()
+    {
+        return counter;
+    }
+    // ---
 }
