@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class ButtonScript : Interactable {
 
-    ButtonAnimation bA;
+    protected ButtonAnimation bA;
 
 	// Use this for initialization
-	void Start () {
+	public void Start () {
         timer = new Timer();
         bA = transform.GetChild(0).GetComponent<ButtonAnimation>();
         indicatorObject = transform.GetChild(0).gameObject;
