@@ -20,12 +20,18 @@ public class ButtonAnimation : MonoBehaviour {
 
     public bool pressed = false;
     protected bool released = false;
+    protected bool pressedWhenActive = false;
     protected Vector3 startPosition;
+
+    public Vector3 originPosition;
+    private ButtonScript buttonScript;
 
     void Start()
     {
         // Remember start position of button
         startPosition = transform.localPosition;
+        originPosition = transform.position;
+        buttonScript = GetComponentInParent<ButtonScript>();
     }
 
     void Update()
@@ -56,7 +62,11 @@ public class ButtonAnimation : MonoBehaviour {
             pressed = true;
             Debug.Log("Pressed");
             //Change color of object to activation color
-            StartCoroutine(ChangeColor(gameObject, inactiveColor, activeColor, 0.2f));
+            if (buttonScript.active) {
+                StartCoroutine(ChangeColor(gameObject, inactiveColor, activeColor, 0.2f));
+                pressedWhenActive = true;
+            }
+                
         }
         //Dectivate unpressed button
         else if (pressComplete <= 0.2f && pressed)
@@ -64,11 +74,21 @@ public class ButtonAnimation : MonoBehaviour {
             pressed = false;
             released = true;
             //Change color of object back to normal
-            StartCoroutine(ChangeColor(gameObject, activeColor, inactiveColor, 0.3f));
+            if (pressedWhenActive)
+            {
+                StartCoroutine(ChangeColor(gameObject, activeColor, inactiveColor, 0.3f));
+                pressedWhenActive = false;
+            }
         }
 
         //Gradually color the indicator when button is pressed
-        if (IndicatorObject) IndicatorObject.GetComponent<Renderer>().material.color = Color.Lerp(Color.black, activeColor, pressComplete);
+        //if (IndicatorObject) IndicatorObject.GetComponent<Renderer>().material.color = Color.Lerp(Color.black, activeColor, pressComplete);
+
+
+        if (localPos.y >= 0.5f)
+        {
+            transform.position = originPosition;
+        }
     }
 
 
