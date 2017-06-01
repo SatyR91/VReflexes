@@ -34,4 +34,9 @@ public class Timer {
         hasStarted = false;
     }
 
+    public float currentDuration()
+    {
+        return (Time.time - timerStart) * 1000;
+    }
+
 }

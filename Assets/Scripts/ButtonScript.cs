@@ -14,8 +14,16 @@ public class ButtonScript : Interactable {
     }
 	
 	// Update is called once per frame
-	void Update () {
-		if (bA.pressed && active)
+	protected override void Update () {
+        if (timer.hasStarted)
+        {
+            if (timer.currentDuration() > 3000) //maximum time given for user to click on the button
+            {
+                Debug.Log("MISSION FAILED");
+                End();
+            }
+        }
+        else if (bA.pressed && active)
         {
             End();
         }
