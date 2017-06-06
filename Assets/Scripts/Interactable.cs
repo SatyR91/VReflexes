@@ -8,7 +8,7 @@ public class Interactable : MonoBehaviour {
     public Timer timer;
     public bool active;
     protected GameObject indicatorObject;
-    public Text reactionTimeUI;
+    public TextMesh reactionTimeUI;
     public List<float> reactionTimes;
     private int counter;
 

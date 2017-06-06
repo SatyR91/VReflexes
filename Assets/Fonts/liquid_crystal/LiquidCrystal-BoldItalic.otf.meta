@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: a568e72c42d345c48874803c2bc35d07
+timeCreated: 1496728439
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Liquid Crystal
+  fontNames:
+  - Liquid Crystal
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 2b03d26b31c4beb43b38e0e96e6a38ed, type: 3}
+  - {fileID: 12800000, guid: 3ada97bb4bce69e4d8db4ed8cd042c4d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
