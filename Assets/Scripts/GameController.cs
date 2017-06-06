@@ -11,8 +11,6 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         globalCounter = 0;
-
-        VisualButtonController.active = true;
 	}
 	
 	// Update is called once per frame
