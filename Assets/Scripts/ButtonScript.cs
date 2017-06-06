@@ -17,7 +17,7 @@ public class ButtonScript : Interactable {
 	protected override void Update () {
         if (timer.hasStarted)
         {
-            if (timer.currentDuration() > 3000) //maximum time given for user to click on the button
+            if (timer.currentDuration() > 3000) //maximum time given for user to click on the butto/
             {
                 Debug.Log("MISSION FAILED");
                 End();
