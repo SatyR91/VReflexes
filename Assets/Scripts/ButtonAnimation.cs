@@ -24,18 +24,24 @@ public class ButtonAnimation : MonoBehaviour {
     protected Vector3 startPosition;
 
     public Vector3 originPosition;
+    public Vector3 lowestPosition;
+
     private ButtonScript buttonScript;
 
     void Start()
     {
         // Remember start position of button
         startPosition = transform.localPosition;
-        originPosition = transform.position;
+        lowestPosition = startPosition;
+        lowestPosition.y = 0.45f;
         buttonScript = GetComponentInParent<ButtonScript>();
     }
 
     void Update()
     {
+
+        
+
         released = false;
 
         // Use local position instead of global, so button can be rotated in any direction
@@ -45,6 +51,14 @@ public class ButtonAnimation : MonoBehaviour {
         if (lockZ) localPos.z = startPosition.z;
         transform.localPosition = localPos;
 
+        if (localPos.y >= 0.5f)
+        {
+            transform.localPosition = startPosition;
+        }
+        if (localPos.y <= 0.45f)
+        {
+            transform.localPosition = lowestPosition;
+        }
         // Return button to startPosition
         transform.localPosition = Vector3.Lerp(transform.localPosition, startPosition, Time.deltaTime * returnSpeed);
 
@@ -63,7 +77,7 @@ public class ButtonAnimation : MonoBehaviour {
             Debug.Log("Pressed");
             //Change color of object to activation color
             if (buttonScript.active) {
-                StartCoroutine(ChangeColor(gameObject, inactiveColor, activeColor, 0.2f));
+                StartCoroutine(ChangeColor(gameObject, Color.red, activeColor, 0.1f));
                 pressedWhenActive = true;
             }
                 
@@ -76,7 +90,7 @@ public class ButtonAnimation : MonoBehaviour {
             //Change color of object back to normal
             if (pressedWhenActive)
             {
-                StartCoroutine(ChangeColor(gameObject, activeColor, inactiveColor, 0.3f));
+                StartCoroutine(ChangeColor(gameObject, activeColor, inactiveColor, 0.2f));
                 pressedWhenActive = false;
             }
         }
@@ -85,10 +99,7 @@ public class ButtonAnimation : MonoBehaviour {
         //if (IndicatorObject) IndicatorObject.GetComponent<Renderer>().material.color = Color.Lerp(Color.black, activeColor, pressComplete);
 
 
-        if (localPos.y >= 0.5f)
-        {
-            transform.position = originPosition;
-        }
+        
     }
 
 
