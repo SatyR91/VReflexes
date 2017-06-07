@@ -9,9 +9,13 @@ public class GameController : MonoBehaviour {
     public ButtonsController VisualButtonController;
     public ButtonsController AudioButtonController;
 
-	// Use this for initialization
-	void Start () {
+    private ScreenOutput screenOutput;
+    private bool screenOutputCoroutineIsFinished = false;
+
+    // Use this for initialization
+    void Start () {
         globalCounter = 0;
+        screenOutput = GameObject.Find("ScreenOutput").GetComponent<ScreenOutput>();
 	}
 	
 	// Update is called once per frame
@@ -24,23 +28,53 @@ public class GameController : MonoBehaviour {
                 VisualButtonController.active = false;
                 AudioButtonController.active = false;
             }
-            else if (VisualButtonController.countRepetitions() > 4)
+            else if (VisualButtonController.countRepetitions() > 4) // BEGIN AUDIO TEST
             {
                 globalCounter += VisualButtonController.counter;
                 VisualButtonController.resetCounter();
-                VisualButtonController.active = false;
-                AudioButtonController.active = true;
+                if (VisualButtonController.active)
+                {
+                    VisualButtonController.active = false;
+                    //AudioButtonController.active = true;
+                    StartCoroutine(WaitForScreenOutputART());
+                }
+                
             }
-            else if (AudioButtonController.countRepetitions() > 4)
+            else if (AudioButtonController.countRepetitions() > 4) // BEGIN VISUAL TEST
             {
                 globalCounter += AudioButtonController.counter;
                 VisualButtonController.resetCounter();
-                VisualButtonController.active = true;
-                AudioButtonController.active = false;
+                if (!VisualButtonController.active)
+                {
+                    //VisualButtonController.active = true;
+                    AudioButtonController.active = false;
+                    StartCoroutine(WaitForScreenOutputVRT());
+                }
+                
             }
         }
         
 	}
+
+    public void BeginTest()
+    {
+        StartCoroutine(WaitForScreenOutputVRT());
+    }
+
+    IEnumerator WaitForScreenOutputVRT()
+    {
+        yield return StartCoroutine(screenOutput.TypeMainScreenText("Visual test beginning in"));
+        active = true;
+        VisualButtonController.active = true;
+    }
+
+    IEnumerator WaitForScreenOutputART()
+    {
+        yield return StartCoroutine(screenOutput.TypeMainScreenText("Audio test beginning in"));
+        active = true;
+        AudioButtonController.active = true;
+    }
+
 
 
 }

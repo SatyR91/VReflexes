@@ -21,9 +21,8 @@ public class BeginButton : MonoBehaviour {
         if (bA.pressed && !firstTime) {
             if (gC) {
                 //Begin first VRT test
-                gC.VisualButtonController.active = true;
                 firstTime = true;
-                gC.active = true;
+                gC.BeginTest();
             }
             else
                 Debug.Log("GameController not asigned");

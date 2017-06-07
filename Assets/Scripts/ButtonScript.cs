@@ -22,11 +22,12 @@ public class ButtonScript : Interactable {
                 Debug.Log("MISSION FAILED");
                 End();
             }
+            else if (bA.pressed && active)
+            {
+                End();
+            }
         }
-        else if (bA.pressed && active)
-        {
-            End();
-        }
+        
 	}
 
     public override void Begin()
