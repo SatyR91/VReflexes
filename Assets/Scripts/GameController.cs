@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+    public bool active = false;
     public int globalCounter;
     public ButtonsController VisualButtonController;
     public ButtonsController AudioButtonController;
@@ -15,27 +16,30 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-        if (globalCounter > 15)
-        {
-            // STOP GAME
-            Debug.Log("End of test");
-            VisualButtonController.active = false;
-            AudioButtonController.active = false;
+        if (active) {
+            if (globalCounter > 15)
+            {
+                // STOP GAME
+                Debug.Log("End of test");
+                VisualButtonController.active = false;
+                AudioButtonController.active = false;
+            }
+            else if (VisualButtonController.countRepetitions() > 4)
+            {
+                globalCounter += VisualButtonController.counter;
+                VisualButtonController.resetCounter();
+                VisualButtonController.active = false;
+                AudioButtonController.active = true;
+            }
+            else if (AudioButtonController.countRepetitions() > 4)
+            {
+                globalCounter += AudioButtonController.counter;
+                VisualButtonController.resetCounter();
+                VisualButtonController.active = true;
+                AudioButtonController.active = false;
+            }
         }
-		else if (VisualButtonController.countRepetitions() > 4)
-        {
-            globalCounter += VisualButtonController.counter;
-            VisualButtonController.resetCounter();
-            VisualButtonController.active = false;
-            AudioButtonController.active = true;
-        }
-        else if (AudioButtonController.countRepetitions() > 4)
-        {
-            globalCounter += AudioButtonController.counter;
-            VisualButtonController.resetCounter();
-            VisualButtonController.active = true;
-            AudioButtonController.active = false;
-        }
+        
 	}
 
 

@@ -23,7 +23,7 @@ public class BeginButton : MonoBehaviour {
                 //Begin first VRT test
                 gC.VisualButtonController.active = true;
                 firstTime = true;
-                Destroy(GetComponent<BeginButton>());
+                gC.active = true;
             }
             else
                 Debug.Log("GameController not asigned");

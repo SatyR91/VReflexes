@@ -50,7 +50,7 @@ public class ButtonsController : MonoBehaviour
 
     int SelectRandomButton()
     {
-        int randomInt = Random.Range(0, buttons.Count);
+        int randomInt = Random.Range(0, buttons.Count - 1);
         return randomInt;
     }
 

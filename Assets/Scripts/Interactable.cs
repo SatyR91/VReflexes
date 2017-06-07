@@ -10,7 +10,7 @@ public class Interactable : MonoBehaviour {
     protected GameObject indicatorObject;
     public TextMesh reactionTimeUI;
     public List<float> reactionTimes;
-    private int counter;
+    private int counter = 0;
 
 	// Use this for initialization
 	void Start () {
