@@ -15,13 +15,13 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         globalCounter = 0;
-        screenOutput = GameObject.Find("ScreenOutput").GetComponent<ScreenOutput>();
+        screenOutput = GameObject.Find("Screen").GetComponent<ScreenOutput>();
 	}
 	
 	// Update is called once per frame
 	void LateUpdate () {
         if (active) {
-            if (globalCounter > 15)
+            if (globalCounter > 15) // END OF TESTS
             {
                 // STOP GAME
                 Debug.Log("End of test");
@@ -63,14 +63,14 @@ public class GameController : MonoBehaviour {
 
     IEnumerator WaitForScreenOutputVRT()
     {
-        yield return StartCoroutine(screenOutput.TypeMainScreenText("Visual test beginning in"));
+        yield return StartCoroutine(screenOutput.TypeMainScreenText("Visual"));
         active = true;
         VisualButtonController.active = true;
     }
 
     IEnumerator WaitForScreenOutputART()
     {
-        yield return StartCoroutine(screenOutput.TypeMainScreenText("Audio test beginning in"));
+        yield return StartCoroutine(screenOutput.TypeMainScreenText("Audio"));
         active = true;
         AudioButtonController.active = true;
     }

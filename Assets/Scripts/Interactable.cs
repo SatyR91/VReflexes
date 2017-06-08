@@ -39,7 +39,7 @@ public class Interactable : MonoBehaviour {
         timer.StopTimer();
         //indicatorObject.GetComponent<MeshRenderer>().material.color = Color.red;
         if (reactionTimeUI) {
-            reactionTimeUI.text = timer.duration.ToString();
+            reactionTimeUI.text = Mathf.Round(timer.duration).ToString();
         }
         storeRT(timer.duration);
         Debug.Log(reactionTimes[reactionTimes.Count - 1]);
