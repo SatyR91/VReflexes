@@ -21,6 +21,16 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate () {
         if (active) {
+
+            if(VisualButtonController.shouldDisplayWarningMessage || AudioButtonController.shouldDisplayWarningMessage)
+            {
+                screenOutput.MSText.text = "Please put your hands in the starting areas";
+            }
+            else
+            {
+                screenOutput.MSText.text = "";
+            }
+
             if (globalCounter > 15) // END OF TESTS
             {
                 // STOP GAME

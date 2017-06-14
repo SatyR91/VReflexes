@@ -14,8 +14,10 @@ public class ButtonsController : MonoBehaviour
     public int timeBetweenStimulis;
     public int counter;
 
-    public GameObject rightHand;
-    public GameObject leftHand;
+    public StartingArea leftStartingArea;
+    public StartingArea rightStartingArea;
+    public bool shouldDisplayWarningMessage;
+
 
     // Use this for initialization
     void Start()
@@ -29,6 +31,12 @@ public class ButtonsController : MonoBehaviour
     {
         if (active)
         {
+
+            if (leftStartingArea.handInArea && rightStartingArea.handInArea) // both hands are in the starting areas
+                shouldDisplayWarningMessage = false;
+            else
+                shouldDisplayWarningMessage = true;
+
             if (!hasWaitCoroutineStarted)
             {
                 StartCoroutine(WaitCoroutine(timeBetweenStimulis, StartButton));
@@ -68,10 +76,20 @@ public class ButtonsController : MonoBehaviour
 
     void StartButton()
     {
-        isButtonActive = true;
-        int randomIndex = SelectRandomButton();
-        activeButtonIndex = randomIndex;
-        buttons[activeButtonIndex].Begin();
+        if (leftStartingArea.handInArea && rightStartingArea.handInArea) // both hands are in the starting areas
+        {
+            isButtonActive = true;
+            int randomIndex = SelectRandomButton();
+            activeButtonIndex = randomIndex;
+            buttons[activeButtonIndex].Begin();
+        }
+        else
+        {
+            // display warning message
+            Debug.Log("Please put your hands in the starting areas");
+            hasWaitCoroutineStarted = false;
+        }
+       
     }
 
     // --- Counter

@@ -19,10 +19,12 @@ public class StartingArea : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         handInArea = true;
+        GetComponent<MeshRenderer>().material.color = Color.green;
     }
 
     void OnTriggerExit(Collider other)
     {
         handInArea = false;
+        GetComponent<MeshRenderer>().material.color = Color.red;
     }
 }
