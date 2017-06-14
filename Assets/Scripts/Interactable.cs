@@ -10,6 +10,7 @@ public class Interactable : MonoBehaviour {
     protected GameObject indicatorObject;
     public TextMesh reactionTimeUI;
     public List<float> reactionTimes;
+    public List<string> hands;
     private int counter = 0;
 
 	// Use this for initialization
@@ -18,7 +19,7 @@ public class Interactable : MonoBehaviour {
         timer = new Timer();
         active = false;
 	}
-	
+
 	// Update is called once per frame
 	protected virtual void Update () {
         if (timer.hasStarted)
@@ -32,7 +33,7 @@ public class Interactable : MonoBehaviour {
     }
 
     public virtual void Begin() {
-        
+
     }
 
     public void End() {
