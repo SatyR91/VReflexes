@@ -103,7 +103,7 @@ public class ButtonAnimation : MonoBehaviour {
     }
 
 
-    private IEnumerator ChangeColor(GameObject obj, Color from, Color to, float duration)
+    public IEnumerator ChangeColor(GameObject obj, Color from, Color to, float duration)
     {
         float timeElapsed = 0.0f;
         float t = 0.0f;
