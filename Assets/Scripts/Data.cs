@@ -11,25 +11,39 @@ public class Data : MonoBehaviour
     private DataTable dt;
     public GameController gc;
     private string[] headers;
+    private bool downloadData;
+    private bool dataCollected;
 
     // Use this for initialization
     void Start()
     {
+        downloadData = false;
+        dataCollected = false;
         dt = new DataTable();
         dt.Clear();
         headers = new string[] { "Type", "Hand", "Reaction Time" };
         for (int i = 0; i < headers.Length; i++)
         {
-
+            DataColumn dtColumn = new DataColumn();
+            dtColumn.DataType = System.Type.GetType("System.String");
+            dtColumn.ColumnName = headers[i];
+            dt.Columns.Add(dtColumn);
         }
-        dt.Columns.Add();
+        
     }
     
     // Update is called once per frame
     void Update()
     {
-        if (gc.globalCounter > 15) {
+        if (gc.globalCounter > 5 && !downloadData) {
+            downloadData = true;
+        }
+        if (downloadData && !dataCollected) {
+            Debug.Log("Data write");
             FillData();
+            WriteDataToExcel();
+            downloadData = false;
+            dataCollected = true;
         }
     }
 
@@ -51,20 +65,23 @@ public class Data : MonoBehaviour
     {
         List<Interactable> visualButtons = gc.VisualButtonController.buttons;
         List<Interactable> audioButtons = gc.AudioButtonController.buttons;
-        foreach (Interactable button in visualButtons)
+        for (int i = 0; i < visualButtons.Count; i++)
         {
-            for (int i = 0; i < button.reactionTimes.Count; i++)
+            var button = visualButtons[i];
+            for (int j = 0; j < button.reactionTimes.Count; j++)
             {
-                AddNewData("Visual", button.hands[i], button.reactionTimes[i]);
+                AddNewData("Visual", "button.hand[]", button.reactionTimes[j]);
             }
         }
-        foreach (Interactable button in audioButtons)
+        for (int i = 0; i < audioButtons.Count; i++)
         {
-            for (int i = 0; i < button.reactionTimes.Count; i++)
+            var button = audioButtons[i];
+            for (int j = 0; j < button.reactionTimes.Count; j++)
             {
-                AddNewData("Audio", button.hands[i], button.reactionTimes[i]);
+                AddNewData("Audio", "button.hand[]", button.reactionTimes[j]);
             }
         }
+        
     }
 
     public void WriteDataToExcel()
@@ -74,10 +91,10 @@ public class Data : MonoBehaviour
         var header = string.Join(",", columnNames);
         lines.Add(header);
 
-        var valueLines = dt.AsEnumerable().Select(row => string.Join(",", (string[])row.ItemArray));
+        var valueLines = dt.AsEnumerable().Select(row => string.Join(",", row.ItemArray.Where(x => x != null).Select(x => x.ToString()).ToArray()));
         lines.AddRange(valueLines);
-
-        File.WriteAllLines("VReflexesData.csv", lines.ToArray());
+        
+        File.WriteAllLines(@"D:\Yamamoto\VReflexes\VReflexesData.csv", lines.ToArray());
 
     }
 
