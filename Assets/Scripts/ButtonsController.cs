@@ -14,6 +14,9 @@ public class ButtonsController : MonoBehaviour
     public int timeBetweenStimulis;
     public int counter;
 
+    public GameObject rightHand;
+    public GameObject leftHand;
+
     // Use this for initialization
     void Start()
     {
