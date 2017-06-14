@@ -5,6 +5,8 @@ using UnityEngine;
 public class StartingArea : MonoBehaviour {
 
     public bool handInArea;
+    public Color positive;
+    public Color negative;
 
 	// Use this for initialization
 	void Start () {
@@ -19,12 +21,12 @@ public class StartingArea : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         handInArea = true;
-        GetComponent<MeshRenderer>().material.color = Color.green;
+        GetComponent<MeshRenderer>().material.color = positive;
     }
 
     void OnTriggerExit(Collider other)
     {
         handInArea = false;
-        GetComponent<MeshRenderer>().material.color = Color.red;
+        GetComponent<MeshRenderer>().material.color = negative;
     }
 }

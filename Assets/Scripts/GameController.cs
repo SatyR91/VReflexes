@@ -12,6 +12,9 @@ public class GameController : MonoBehaviour {
     private ScreenOutput screenOutput;
     private bool screenOutputCoroutineIsFinished = false;
 
+    public GameObject rightHandStartingArea;
+    public GameObject leftHandStartingArea;
+
     // Use this for initialization
     void Start () {
         globalCounter = 0;
@@ -21,6 +24,13 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate () {
         if (active) {
+
+            // Display Starting areas
+            if (!rightHandStartingArea.activeSelf && !leftHandStartingArea.activeSelf)
+            {
+                rightHandStartingArea.SetActive(true);
+                leftHandStartingArea.SetActive(true);
+            }
 
             if(VisualButtonController.shouldDisplayWarningMessage || AudioButtonController.shouldDisplayWarningMessage)
             {
@@ -61,6 +71,14 @@ public class GameController : MonoBehaviour {
                     StartCoroutine(WaitForScreenOutputVRT());
                 }
                 
+            }
+        }
+        else // Hide starting areas
+        {
+            if (rightHandStartingArea.activeSelf && leftHandStartingArea.activeSelf)
+            {
+                rightHandStartingArea.SetActive(false);
+                leftHandStartingArea.SetActive(false);
             }
         }
         
