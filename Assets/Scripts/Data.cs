@@ -42,6 +42,11 @@ public class Data : MonoBehaviour
             Debug.Log("Data write");
             FillData();
             WriteDataToExcel();
+
+            gc.VRTMean = ComputeMeanReactionTime("Visual", "button.hand[]");
+            gc.ARTMean = ComputeMeanReactionTime("Audio", "button.hand[]");
+            gc.ShowResultsOnScreen();
+
             downloadData = false;
             dataCollected = true;
         }
@@ -94,7 +99,8 @@ public class Data : MonoBehaviour
         var valueLines = dt.AsEnumerable().Select(row => string.Join(",", row.ItemArray.Where(x => x != null).Select(x => x.ToString()).ToArray()));
         lines.AddRange(valueLines);
         
-        File.WriteAllLines(@"C:\Users\etudiant\Downloads\VReflexes-dev-vive\VReflexesData.csv", lines.ToArray());
+        //File.WriteAllLines(@"C:\Users\etudiant\Downloads\VReflexes-dev-vive\VReflexesData.csv", lines.ToArray());
+        File.WriteAllLines(@"F:\Unity\VReflexes\VReflexesData.csv", lines.ToArray());
 
     }
 
@@ -104,9 +110,9 @@ public class Data : MonoBehaviour
         float totalRows = 0;
         foreach (DataRow row in dt.Rows)
         {
-            if (row[int.Parse(headers[0])].ToString().Equals(type) && row[int.Parse(headers[1])].ToString().Equals(hand))
+            if (row[headers[0]].ToString().Equals(type) && row[headers[1]].ToString().Equals(hand))
             {
-                mean += float.Parse(row[int.Parse(headers[2])].ToString());
+                mean += float.Parse(row[headers[2]].ToString());
                 totalRows++;
             }
         }

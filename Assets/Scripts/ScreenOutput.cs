@@ -94,7 +94,6 @@ public class ScreenOutput : MonoBehaviour {
 
     public void SetupForAudioTest()
     {
-        Clear();
         SetupForTest();
         MSTextToPrint = "Audio test beginning in";
         RSText.text = "Click on the central button \nas soon as you hear the sound";
@@ -102,10 +101,23 @@ public class ScreenOutput : MonoBehaviour {
 
     public void SetupForVisualTest()
     {
-        Clear();
         SetupForTest();
         MSTextToPrint = "Visual test beginning in";
         RSText.text = "Click on the button \nas soon as it turns red";
+    }
+
+    public void showResults(float VRT, float ART) 
+    {
+        Clear();
+        MSTitle.text = "Results";
+        MSText.text = "Average Reaction Time";
+        MSCountdown.text = Mathf.Round((VRT + ART) / 2).ToString() + " ms";
+
+        RSTitle.text = "Visual";
+        RSText.text = MSCountdown.text = Mathf.Round(VRT).ToString() + " ms";
+
+        LSTitle.text = "Audio";
+        LSText.text = MSCountdown.text = Mathf.Round(ART).ToString() + " ms";
     }
 
 }
