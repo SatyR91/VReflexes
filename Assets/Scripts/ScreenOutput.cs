@@ -109,15 +109,14 @@ public class ScreenOutput : MonoBehaviour {
     public void showResults(float VRT, float ART) 
     {
         Clear();
-        MSTitle.text = "Results";
-        MSText.text = "Average Reaction Time";
+        MSTitle.text = "Average Reaction Time";
         MSCountdown.text = Mathf.Round((VRT + ART) / 2).ToString() + " ms";
 
         RSTitle.text = "Visual";
-        RSText.text = MSCountdown.text = Mathf.Round(VRT).ToString() + " ms";
+        RSText.text = Mathf.Round(VRT).ToString() + " ms";
 
         LSTitle.text = "Audio";
-        LSText.text = MSCountdown.text = Mathf.Round(ART).ToString() + " ms";
+        LSText.text = Mathf.Round(ART).ToString() + " ms";
     }
 
 }

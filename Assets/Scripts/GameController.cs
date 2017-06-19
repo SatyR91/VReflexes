@@ -35,6 +35,8 @@ public class GameController : MonoBehaviour {
                 Debug.Log("End of test");
                 VisualButtonController.active = false;
                 AudioButtonController.active = false;
+                VisualButtonController.gameObject.SetActive(false);
+                AudioButtonController.gameObject.SetActive(false);
                 VisualButtonController.shouldDisplayWarningMessage = false;
                 AudioButtonController.shouldDisplayWarningMessage = false;
                 active = false;
@@ -58,23 +60,24 @@ public class GameController : MonoBehaviour {
                 }
 
 
-                if (VisualButtonController.countRepetitions() > 4 && globalCounter <= numberOfTest) // BEGIN AUDIO TEST
+                if (VisualButtonController.countRepetitions() > 4 ) // BEGIN AUDIO TEST
                 {
                     globalCounter += VisualButtonController.counter;
                     VisualButtonController.resetCounter();
-                    if (VisualButtonController.active)
+                    if (VisualButtonController.active && globalCounter < numberOfTest)
                     {
                         VisualButtonController.active = false;
                         //AudioButtonController.active = true;
                         StartCoroutine(WaitForScreenOutputART());
                     }
+                    
 
                 }
-                else if (AudioButtonController.countRepetitions() > 4 && globalCounter <= numberOfTest) // BEGIN VISUAL TEST
+                else if (AudioButtonController.countRepetitions() > 4) // BEGIN VISUAL TEST
                 {
                     globalCounter += AudioButtonController.counter;
                     VisualButtonController.resetCounter();
-                    if (!VisualButtonController.active)
+                    if (!VisualButtonController.active && globalCounter < numberOfTest)
                     {
                         //VisualButtonController.active = true;
                         AudioButtonController.active = false;
