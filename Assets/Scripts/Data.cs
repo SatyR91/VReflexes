@@ -94,7 +94,7 @@ public class Data : MonoBehaviour
         var valueLines = dt.AsEnumerable().Select(row => string.Join(",", row.ItemArray.Where(x => x != null).Select(x => x.ToString()).ToArray()));
         lines.AddRange(valueLines);
         
-        File.WriteAllLines(@"D:\Yamamoto\VReflexes\VReflexesData.csv", lines.ToArray());
+        File.WriteAllLines(@"C:\Users\etudiant\Downloads\VReflexes-dev-vive\VReflexesData.csv", lines.ToArray());
 
     }
 
