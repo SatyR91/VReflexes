@@ -31,10 +31,12 @@ public class ButtonScript : Interactable {
         
 	}
 
-    public override void Begin()
+    public override void Begin(bool b)
     {
-        timer.StartTimer();
+        perturbated = b;
+
         indicatorObject.GetComponent<MeshRenderer>().material.color = Color.red;
+        timer.StartTimer();
         active = true;
     }
 

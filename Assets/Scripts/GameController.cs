@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour {
 
     public float ARTMean;
     public float VRTMean;
+    public float VRTPMean;
 
     private ScreenOutput screenOutput;
     private bool screenOutputCoroutineIsFinished = false;
@@ -136,7 +137,7 @@ public class GameController : MonoBehaviour {
     {
         if (ARTMean != 0 & VRTMean != 0)
         {
-            screenOutput.showResults(VRTMean, ARTMean);
+            screenOutput.showResults(VRTMean, ARTMean, VRTPMean);
         }
         else
         {

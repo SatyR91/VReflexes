@@ -74,6 +74,7 @@ public class ButtonAnimation : MonoBehaviour {
         if (pressComplete >= 0.7f && !pressed)
         {
             pressed = true;
+            GetComponent<AudioSource>().Play();
             Debug.Log("Pressed");
             //Change color of object to activation color
             if (buttonScript.active) {
@@ -91,6 +92,7 @@ public class ButtonAnimation : MonoBehaviour {
             if (pressedWhenActive)
             {
                 StartCoroutine(ChangeColor(gameObject, activeColor, inactiveColor, 0.2f));
+                
                 pressedWhenActive = false;
             }
         }

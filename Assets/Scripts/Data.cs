@@ -35,7 +35,7 @@ public class Data : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gc.globalCounter > 5 && !downloadData) {
+        if (gc.globalCounter == gc.numberOfTest && !downloadData) {
             downloadData = true;
         }
         if (downloadData && !dataCollected) {
@@ -43,8 +43,9 @@ public class Data : MonoBehaviour
             FillData();
             WriteDataToExcel();
 
-            gc.VRTMean = ComputeMeanReactionTime("Visual", "button.hand[]");
-            gc.ARTMean = ComputeMeanReactionTime("Audio", "button.hand[]");
+            gc.VRTMean = ComputeMeanReactionTime("Visual", "button.hands[j]");
+            gc.ARTMean = ComputeMeanReactionTime("Audio", "button.hands[j]");
+            gc.VRTPMean = ComputeMeanReactionTime("VisualWithPerturbation", "button.hands[j+button.reactionTimes.Count]");
             gc.ShowResultsOnScreen();
 
             downloadData = false;
@@ -75,15 +76,15 @@ public class Data : MonoBehaviour
             var button = visualButtons[i];
             for (int j = 0; j < button.reactionTimes.Count; j++)
             {
-                AddNewData("Visual", button.hands[j], button.reactionTimes[j]);
+                AddNewData("Visual", "button.hands[j]", button.reactionTimes[j]);
             }
         }
         for(int i = 0; i < visualButtons.Count; i++)
         {
             var button = visualButtons[i];
-            for (int j = 0; j < button.reactionTimesperturbations.Count; j++)
+            for (int j = 0; j < button.reactionTimesPerturbations.Count; j++)
             {
-                AddNewData("VisualWithPerturbation", button.handsPerturbations[j], button.reactionTimesPerturbations[j]);
+                AddNewData("VisualWithPerturbation", "button.hands[j+button.reactionTimes.Count]", button.reactionTimesPerturbations[j]);
             }
         }
         for (int i = 0; i < audioButtons.Count; i++)
@@ -91,7 +92,7 @@ public class Data : MonoBehaviour
             var button = audioButtons[i];
             for (int j = 0; j < button.reactionTimes.Count; j++)
             {
-                AddNewData("Audio", button.hands[j], button.reactionTimes[j]);
+                AddNewData("Audio", "button.hands[j]", button.reactionTimes[j]);
             }
         }
         

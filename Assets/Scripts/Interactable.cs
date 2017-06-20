@@ -13,6 +13,7 @@ public class Interactable : MonoBehaviour {
     public List<float> reactionTimesPerturbations;
     public bool perturbated = false;
     public List<string> hands;
+    public List<string> handsPerturbations;
     private int counter = 0;
 
 	// Use this for initialization

@@ -15,6 +15,8 @@ public class ScreenOutput : MonoBehaviour {
     // Right screen Text meshes
     public TextMesh RSTitle;
     public TextMesh RSText;
+    public TextMesh RSTitlePerturbation;
+    public TextMesh RSTextPerturbation;
 
     private string MSTextToPrint;
     public float pause = 0.05f;
@@ -72,6 +74,8 @@ public class ScreenOutput : MonoBehaviour {
         LSms.text = "";
         RSTitle.text = "";
         RSText.text = "";
+        RSTitlePerturbation.text = "";
+        RSTextPerturbation.text = "";
     }
 
     public void SetupForBeginning()
@@ -106,14 +110,16 @@ public class ScreenOutput : MonoBehaviour {
         RSText.text = "Click on the button \nas soon as it turns red";
     }
 
-    public void showResults(float VRT, float ART) 
+    public void showResults(float VRT, float ART, float VRTPerturbations) 
     {
         Clear();
         MSTitle.text = "Average Reaction Time";
-        MSCountdown.text = Mathf.Round((VRT + ART) / 2).ToString() + " ms";
+        MSCountdown.text = Mathf.Round((VRT + ART + VRTPerturbations) / 3).ToString() + " ms";
 
         RSTitle.text = "Visual";
         RSText.text = Mathf.Round(VRT).ToString() + " ms";
+        RSTitlePerturbation.text = "Visual w/ perturbations";
+        RSTextPerturbation.text = Mathf.Round(VRTPerturbations).ToString() + " ms";
 
         LSTitle.text = "Audio";
         LSText.text = Mathf.Round(ART).ToString() + " ms";
