@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-    public int numberOfTest = 10;
+    public int numberOfTest = 15;
     public bool active = false;
     public int globalCounter;
     public ButtonsController VisualButtonController;
     public ButtonsController AudioButtonController;
+    public bool startVisualWithPerturbations = false;
 
     public float ARTMean;
     public float VRTMean;
@@ -38,8 +39,6 @@ public class GameController : MonoBehaviour {
                 VisualButtonController.gameObject.SetActive(false);
                 VisualButtonController.shouldDisplayWarningMessage = false;
                 AudioButtonController.shouldDisplayWarningMessage = false;
-                globalCounter = 0;
-                screenOutput.MSText.text = "Press the central button to start again";
                 active = false;
             }
             else // TEST CONTINUES
@@ -61,7 +60,15 @@ public class GameController : MonoBehaviour {
                 }
 
 
-                if (VisualButtonController.countRepetitions() > 4 ) // BEGIN AUDIO TEST
+                if (VisualButtonController.countRepetitions() > 4 && startVisualWithPerturbations) // END VISUAL TEST WITH PERTURBATIONS
+                {
+                    Debug.Log("END OF PERTURBATIONS TESTS");
+                    globalCounter += VisualButtonController.counter;
+                    VisualButtonController.resetCounter();                  
+
+                }
+
+                else if (VisualButtonController.countRepetitions() > 4 && !startVisualWithPerturbations) // END VISUAL TEST & BEGIN AUDIO TEST
                 {
                     globalCounter += VisualButtonController.counter;
                     VisualButtonController.resetCounter();
@@ -71,13 +78,16 @@ public class GameController : MonoBehaviour {
                         //AudioButtonController.active = true;
                         StartCoroutine(WaitForScreenOutputART());
                     }
-                    
+
 
                 }
-                else if (AudioButtonController.countRepetitions() > 4) // BEGIN VISUAL TEST
+
+                else if (AudioButtonController.countRepetitions() > 4 && !startVisualWithPerturbations) // END AUDIO & BEGIN VISUAL PERTURBATION TEST
                 {
                     globalCounter += AudioButtonController.counter;
                     VisualButtonController.resetCounter();
+                    startVisualWithPerturbations = true;
+                    VisualButtonController.perturbations = true;
                     if (!VisualButtonController.active && globalCounter < numberOfTest)
                     {
                         //VisualButtonController.active = true;

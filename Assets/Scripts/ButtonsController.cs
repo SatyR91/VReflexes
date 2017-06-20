@@ -13,6 +13,7 @@ public class ButtonsController : MonoBehaviour
     public int activeButtonIndex;
     public int timeBetweenStimulis;
     public int counter;
+    public bool perturbations = false;
 
     public StartingArea leftStartingArea;
     public StartingArea rightStartingArea;
@@ -39,7 +40,10 @@ public class ButtonsController : MonoBehaviour
 
             if (!hasWaitCoroutineStarted)
             {
-                StartCoroutine(WaitCoroutine(timeBetweenStimulis, StartButton));
+                if (perturbations) 
+                    StartCoroutine(WaitCoroutineWithPerturbations(timeBetweenStimulis, StartButton));
+                else
+                    StartCoroutine(WaitCoroutine(timeBetweenStimulis, StartButton));
             }
             else {
                 if (isButtonActive)
@@ -109,7 +113,7 @@ public class ButtonsController : MonoBehaviour
         {
             StartCoroutine(ResetColorCoroutine(randomIndexes[i]));
         }
-        StartButton();
+        StartButtonWithPerturbations();
     }
 
     IEnumerator ResetColorCoroutine(int index)
@@ -131,7 +135,7 @@ public class ButtonsController : MonoBehaviour
         if (leftStartingArea.handInArea && rightStartingArea.handInArea) // both hands are in the starting areas
         {
             isButtonActive = true;
-            buttons[activeButtonIndex].Begin();
+            buttons[activeButtonIndex].Begin(false);
         }
         else
         {
@@ -140,6 +144,22 @@ public class ButtonsController : MonoBehaviour
             hasWaitCoroutineStarted = false;
         }
        
+    }
+
+    void StartButtonWithPerturbations()
+    {
+        if (leftStartingArea.handInArea && rightStartingArea.handInArea) // both hands are in the starting areas
+        {
+            isButtonActive = true;
+            buttons[activeButtonIndex].Begin(true);
+        }
+        else
+        {
+            // display warning message
+            Debug.Log("Please put your hands in the starting areas");
+            hasWaitCoroutineStarted = false;
+        }
+
     }
 
     // --- Counter

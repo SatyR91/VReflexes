@@ -16,7 +16,7 @@ public class AudioButton : ButtonScript {
         audioSource.clip = stimuliSound;
     }
 
-	public override void Begin()
+	public override void Begin(bool perturbated)
     {
         audioSource.Play();
         timer.StartTimer();

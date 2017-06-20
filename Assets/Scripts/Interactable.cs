@@ -10,12 +10,15 @@ public class Interactable : MonoBehaviour {
     protected GameObject indicatorObject;
     public TextMesh reactionTimeUI;
     public List<float> reactionTimes;
+    public List<float> reactionTimesPerturbations;
+    public bool perturbated = false;
     public List<string> hands;
     private int counter = 0;
 
 	// Use this for initialization
 	void Start () {
         reactionTimes = new List<float>();
+        reactionTimesPerturbations = new List<float>();
         timer = new Timer();
         active = false;
 	}
@@ -42,7 +45,7 @@ public class Interactable : MonoBehaviour {
         }
     }
 
-    public virtual void Begin() {
+    public virtual void Begin(bool perturbated) {
 
     }
 
@@ -53,13 +56,16 @@ public class Interactable : MonoBehaviour {
             reactionTimeUI.text = Mathf.Round(timer.duration).ToString();
         }
         storeRT(timer.duration);
-        Debug.Log(reactionTimes[reactionTimes.Count - 1]);
+        //Debug.Log(reactionTimes[reactionTimes.Count - 1]);
         active = false;
     }
 
-
     public void storeRT(float RT) {
-        reactionTimes.Add(RT);
+        if (!perturbated)
+            reactionTimes.Add(RT);
+        else
+            reactionTimesPerturbations.Add(RT);
+
         counter++;
     }
 
