@@ -20,6 +20,7 @@ public class ButtonScript : Interactable {
             if (timer.currentDuration() > 3000) //maximum time given for user to click on the butto/
             {
                 Debug.Log("MISSION FAILED");
+                hands.Add("NA");
                 StartCoroutine(bA.ChangeColor(bA.gameObject, Color.red, bA.inactiveColor, 0.2f));
                 End();
             }

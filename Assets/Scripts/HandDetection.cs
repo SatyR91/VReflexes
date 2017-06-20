@@ -6,29 +6,30 @@ public class HandDetection : MonoBehaviour {
 
     public Interactable button;
     public ButtonAnimation bA;
+    public GameObject hand;
+    public bool once;
 
 	// Use this for initialization
 	void Start () {
+        once = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject hand = collision.gameObject;
-        if (button.timer.hasStarted && bA.pressed)
+        hand = collision.gameObject;
+        Debug.Log(hand.name);
+        if (button.active && !once)
         {
-            if (button.timer.currentDuration() > 3000f)
-            {
-                button.hands.Add("NA");
-            }
-            else
-            {
-                button.hands.Add(hand.name);
-            }
+            button.hands.Add(hand.name);
+            once = true;
         }
+        else {
+            once = false;
+        }
+
     }
 }
