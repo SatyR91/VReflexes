@@ -20,6 +20,16 @@ public class Interactable : MonoBehaviour {
         active = false;
 	}
 
+    public virtual void Fake()
+    {
+
+    }
+
+    public virtual void ResetColor()
+    {
+
+    }
+
 	// Update is called once per frame
 	protected virtual void Update () {
         if (timer.hasStarted)

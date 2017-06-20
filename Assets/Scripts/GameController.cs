@@ -36,9 +36,10 @@ public class GameController : MonoBehaviour {
                 VisualButtonController.active = false;
                 AudioButtonController.active = false;
                 VisualButtonController.gameObject.SetActive(false);
-                AudioButtonController.gameObject.SetActive(false);
                 VisualButtonController.shouldDisplayWarningMessage = false;
                 AudioButtonController.shouldDisplayWarningMessage = false;
+                globalCounter = 0;
+                screenOutput.MSText.text = "Press the central button to start again";
                 active = false;
             }
             else // TEST CONTINUES
@@ -102,6 +103,8 @@ public class GameController : MonoBehaviour {
 
     public void BeginTest()
     {
+        globalCounter = 0;
+        VisualButtonController.gameObject.SetActive(true);
         StartCoroutine(WaitForScreenOutputVRT());
     }
 

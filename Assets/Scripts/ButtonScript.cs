@@ -37,4 +37,14 @@ public class ButtonScript : Interactable {
         indicatorObject.GetComponent<MeshRenderer>().material.color = Color.red;
         active = true;
     }
+
+    public override void Fake()
+    {
+        indicatorObject.GetComponent<MeshRenderer>().material.color = Color.yellow;
+    }
+
+    public override void ResetColor()
+    {
+        indicatorObject.GetComponent<MeshRenderer>().material.color = indicatorObject.GetComponent<ButtonAnimation>().inactiveColor;
+    }
 }

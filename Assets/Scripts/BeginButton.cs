@@ -5,6 +5,7 @@ using UnityEngine;
 public class BeginButton : MonoBehaviour {
 
     public bool firstTime = false;
+    public bool hasRestartCoroutineStarted = false;
     protected ButtonAnimation bA;
     public GameObject indicatorObject;
     public GameController gC;
@@ -28,6 +29,21 @@ public class BeginButton : MonoBehaviour {
                 Debug.Log("GameController not asigned");
 
         }
+        /*else if (gC.globalCounter == gC.numberOfTest) {
+            if (!hasRestartCoroutineStarted)
+            {
+                StartCoroutine(RestartCoroutine());
+                hasRestartCoroutineStarted = true;
+            }
+            
+        }*/
 
+    }
+
+    IEnumerator RestartCoroutine()
+    {
+        yield return new WaitForSeconds(3);
+        firstTime = false;
+        hasRestartCoroutineStarted = false;
     }
 }

@@ -65,13 +65,65 @@ public class ButtonsController : MonoBehaviour
         return randomInt;
     }
 
+    /// <summary>
+    /// Select random buttons that are not the active ones
+    /// </summary>
+    /// <param name="activeButtonIndex"></param>
+    /// <returns></returns>
+    List<int> SelectRandomButtons(int activeButtonIndex)
+    {
+        List<int> buttonsIndexes = new List<int>();
+        int i = 0;
+        while (i < 2)
+        {
+            int randomInt = Random.Range(0, buttons.Count - 1);
+            if (randomInt != activeButtonIndex)
+            {
+                ++i;
+                buttonsIndexes.Add(randomInt);
+            }
+        }
+        return buttonsIndexes;
+    }
+
     IEnumerator WaitCoroutine(float maximumWaitTime, System.Action StartButton)
     {
         hasWaitCoroutineStarted = true;
         float randomDuration = Random.Range(1, maximumWaitTime);
 
         yield return new WaitForSeconds(randomDuration);
+        activeButtonIndex = SelectRandomButton();
         StartButton();
+    }
+
+    IEnumerator WaitCoroutineWithPerturbations(float maximumWaitTime, System.Action StartButton)
+    {
+        hasWaitCoroutineStarted = true;
+        float randomDuration = Random.Range(1, maximumWaitTime);
+
+        yield return new WaitForSeconds(randomDuration);
+        activeButtonIndex = SelectRandomButton();
+        List<int> randomIndexes = SelectRandomButtons(activeButtonIndex);
+        StartFakeButtons(randomIndexes);
+        for (int i = 0; i < randomIndexes.Count; ++i)
+        {
+            StartCoroutine(ResetColorCoroutine(randomIndexes[i]));
+        }
+        StartButton();
+    }
+
+    IEnumerator ResetColorCoroutine(int index)
+    {
+        yield return new WaitForSeconds(1);
+        buttons[index].ResetColor();
+    }
+
+    void StartFakeButtons(List<int> buttonsIndexes)
+    {
+        for (int i = 0; i < buttonsIndexes.Count; ++i)
+        {
+            buttons[buttonsIndexes[i]].Fake();
+        }
     }
 
     void StartButton()
@@ -79,8 +131,6 @@ public class ButtonsController : MonoBehaviour
         if (leftStartingArea.handInArea && rightStartingArea.handInArea) // both hands are in the starting areas
         {
             isButtonActive = true;
-            int randomIndex = SelectRandomButton();
-            activeButtonIndex = randomIndex;
             buttons[activeButtonIndex].Begin();
         }
         else
