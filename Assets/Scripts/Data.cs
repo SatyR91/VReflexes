@@ -75,7 +75,15 @@ public class Data : MonoBehaviour
             var button = visualButtons[i];
             for (int j = 0; j < button.reactionTimes.Count; j++)
             {
-                AddNewData("Visual", "button.hand[]", button.reactionTimes[j]);
+                AddNewData("Visual", button.hands[j], button.reactionTimes[j]);
+            }
+        }
+        for(int i = 0; i < visualButtons.Count; i++)
+        {
+            var button = visualButtons[i];
+            for (int j = 0; j < button.reactionTimesperturbations.Count; j++)
+            {
+                AddNewData("VisualWithPerturbation", button.handsPerturbations[j], button.reactionTimesPerturbations[j]);
             }
         }
         for (int i = 0; i < audioButtons.Count; i++)
@@ -83,7 +91,7 @@ public class Data : MonoBehaviour
             var button = audioButtons[i];
             for (int j = 0; j < button.reactionTimes.Count; j++)
             {
-                AddNewData("Audio", "button.hand[]", button.reactionTimes[j]);
+                AddNewData("Audio", button.hands[j], button.reactionTimes[j]);
             }
         }
         
